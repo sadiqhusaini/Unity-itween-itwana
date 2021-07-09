@@ -17,75 +17,69 @@ public class itwanaEditor: Editor{
 		
         EditorGUILayout.Space(10);
         EditorGUILayout.BeginVertical ("box");
-		
+        EditorStyles.label.fontStyle = FontStyle.Bold;
+
         EditorGUILayout.BeginHorizontal ("box");
-        _itwana.type = (itwana.Type)EditorGUILayout.EnumPopup ("type", _itwana.type);
+        _itwana.type = (itwana.Type)EditorGUILayout.EnumPopup ("Type", _itwana.type);
         EditorGUILayout.EndVertical();
+      
 
         if (_itwana.type == itwana.Type.Move ||_itwana.type == itwana.Type.Scale ||_itwana.type == itwana.Type.Rotate) {
 			
             EditorGUILayout.BeginVertical ("box");
-            _itwana.method = (itwana.Method)EditorGUILayout.EnumPopup ("method", _itwana.method);
+            _itwana.method = (itwana.Method)EditorGUILayout.EnumPopup ("Method", _itwana.method);
             EditorGUILayout.EndVertical();
-			
-         
-            EditorGUILayout.BeginVertical ("box");
-            _itwana.axis=(itwana.Axis)EditorGUILayout.EnumPopup ("axis", _itwana.axis);
-            EditorGUILayout.EndVertical();
-				
-				
-            XYZFields();
-            TargetLocationField();
 
-            if (_itwana.method != itwana.Method.Update)
-                EaseTypeLoopType();
+            if (_itwana.method != itwana.Method.None)
+            {
+                EditorGUILayout.BeginVertical("box");
+                _itwana.axis = (itwana.Axis) EditorGUILayout.EnumPopup("Axis", _itwana.axis);
+                EditorGUILayout.EndVertical();
 
-            DelayTime();
-				
-            RepeatOnclickIgnoreTimeScale();
+                XYZFields();
+                TargetLocationField();
+                
+                if (_itwana.method != itwana.Method.Update)
+                    EaseTypeLoopType();
 
+                DelayTime();
+                RepeatOnclickIgnoreTimeScale();
+            }
         }
-
-        if (_itwana.type == itwana.Type.Stab) {
+        else if (_itwana.type == itwana.Type.Stab) {
             EditorGUILayout.BeginVertical ("box");
             _itwana.clip =(AudioClip)EditorGUILayout.ObjectField ("Clip",_itwana.clip, typeof(AudioClip),true);
             EditorGUILayout.EndVertical();
-            EditorGUILayout.BeginVertical ("box");
-            _itwana.pitch = EditorGUILayout.Slider ("pitch",_itwana.pitch, -3, 3);
-            _itwana.volume = EditorGUILayout.Slider ("volume", _itwana.volume, 0, 1);
-            EditorGUILayout.EndVertical();
+            PitchVolume();
             RepeatOnclickIgnoreTimeScale();
         }
-        if (_itwana.type == itwana.Type.FollowPath) {
+        else if (_itwana.type == itwana.Type.FollowPath) {
             EditorGUILayout.BeginVertical ("box");
-            _itwana.pathName= EditorGUILayout.TextField("pathName",_itwana.pathName);
+            _itwana.pathName= EditorGUILayout.TextField("PathName",_itwana.pathName);
             EditorGUILayout.EndVertical();
             EaseTypeLoopType();
             DelayTime();
             RepeatOnclickIgnoreTimeScale();
         }
 
-        if (_itwana.type == itwana.Type.Audio) {
+        else if (_itwana.type == itwana.Type.Audio) {
             EditorGUILayout.BeginVertical ("box");
-            _itwana.method = (itwana.Method)EditorGUILayout.EnumPopup ("method", _itwana.method);
+            _itwana.method = (itwana.Method)EditorGUILayout.EnumPopup ("Method", _itwana.method);
             EditorGUILayout.EndVertical();
-            if (_itwana.method == itwana.Method.To || _itwana.method == itwana.Method.From || _itwana.method == itwana.Method.Update) {
-                EditorGUILayout.BeginVertical ("box");
-                _itwana.pitch = EditorGUILayout.Slider ("pitch", _itwana.pitch, -3, 3);
-                _itwana.volume = EditorGUILayout.Slider ("volume", _itwana.volume, 0, 1);
-                EditorGUILayout.EndVertical();
+            if (_itwana.method == itwana.Method.To || _itwana.method == itwana.Method.From || _itwana.method == itwana.Method.Update)
+            {
+                PitchVolume();
                 RepeatOnclickIgnoreTimeScale();
             }
+            
         }
-
         EditorGUILayout.EndVertical ();
-
-
-
-
+        
+        Version();
+        
     }
 
-    void TargetLocationField()
+    private void TargetLocationField()
     {         
         
         if( _itwana.axis==itwana.Axis.None||_itwana.axis!=itwana.Axis.TargetLocation)
@@ -104,7 +98,7 @@ public class itwanaEditor: Editor{
     }
 
 
-    void XYZFields()
+    private    void XYZFields()
     {
         
         if( _itwana.axis==itwana.Axis.None ||_itwana.axis==itwana.Axis.TargetLocation)
@@ -155,40 +149,42 @@ public class itwanaEditor: Editor{
         EditorGUILayout.EndVertical();
     }
 
-    void XValueField()
+    private   void XValueField()
     {
         EditorGUILayout.BeginHorizontal ("box");
-        _itwana.x = EditorGUILayout.FloatField ("x", _itwana.x);
+        _itwana.x = EditorGUILayout.FloatField ("X", _itwana.x);
         EditorGUILayout.EndHorizontal();
     }
-    void YValueField()
+    private  void YValueField()
     {
         EditorGUILayout.BeginHorizontal ("box");
-        _itwana.y = EditorGUILayout.FloatField ("y", _itwana.y);
+        _itwana.y = EditorGUILayout.FloatField ("Y", _itwana.y);
         EditorGUILayout.EndHorizontal();
     }
-    void ZValueField()
+    private   void ZValueField()
     {
         EditorGUILayout.BeginHorizontal ("box");
-        _itwana.z = EditorGUILayout.FloatField ("z", _itwana.z);
+        _itwana.z = EditorGUILayout.FloatField ("Z", _itwana.z);
         EditorGUILayout.EndHorizontal();
     }
 
-    void EaseTypeLoopType()
+    private    void EaseTypeLoopType()
     {
 		
         EditorGUILayout.BeginVertical ("box");
-        EditorGUIUtility.fieldWidth = 20;
-        EditorGUIUtility.labelWidth = 100;
+        EditorGUIUtility.fieldWidth = 10;
+        EditorGUIUtility.labelWidth = 60;
 		
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.BeginHorizontal ("box");
-        _itwana.easeType=(iTween.EaseType)EditorGUILayout.EnumPopup ("easeType", _itwana.easeType);
+        _itwana.easeType=(iTween.EaseType)EditorGUILayout.EnumPopup ("EaseType", _itwana.easeType);
         EditorGUILayout.EndHorizontal();
 		
         EditorGUILayout.BeginHorizontal ("box");
-        _itwana.loopType=(iTween.LoopType)EditorGUILayout.EnumPopup ("loopType", _itwana.loopType);
+        _itwana.loopType=(iTween.LoopType)EditorGUILayout.EnumPopup ("LoopType", _itwana.loopType);
         EditorGUILayout.EndHorizontal();
+        
+        
 		
 		
         EditorGUILayout.EndHorizontal();
@@ -196,7 +192,7 @@ public class itwanaEditor: Editor{
     }
 	
 	
-    void DelayTime()
+    private   void DelayTime()
     {
 		
         EditorGUILayout.BeginVertical ("box");
@@ -205,11 +201,11 @@ public class itwanaEditor: Editor{
 		
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.BeginHorizontal ("box");
-        _itwana.delay = EditorGUILayout.FloatField("delay", _itwana.delay);
+        _itwana.delay = EditorGUILayout.FloatField("Delay", _itwana.delay);
         EditorGUILayout.EndHorizontal();
 		
         EditorGUILayout.BeginHorizontal ("box");
-        _itwana.time = EditorGUILayout.FloatField("time", _itwana.time);
+        _itwana.time = EditorGUILayout.FloatField("Time", _itwana.time);
         EditorGUILayout.EndHorizontal();
 		
 		
@@ -217,7 +213,7 @@ public class itwanaEditor: Editor{
         EditorGUILayout.EndVertical();
     }
 
-    void RepeatOnclickIgnoreTimeScale()
+    private   void RepeatOnclickIgnoreTimeScale()
     {
         EditorGUILayout.BeginVertical ("box");
         EditorGUIUtility.fieldWidth = 10;
@@ -227,23 +223,20 @@ public class itwanaEditor: Editor{
         EditorGUILayout.BeginHorizontal();
 		
         EditorGUILayout.BeginHorizontal ("box");
-        _itwana.repeat = EditorGUILayout.Toggle ("repeat", _itwana.repeat);
+        _itwana.repeat = EditorGUILayout.Toggle ("Repeat", _itwana.repeat);
         EditorGUILayout.EndHorizontal();
 
-				
         EditorGUILayout.BeginHorizontal ("box");
-        _itwana.onClick = EditorGUILayout.Toggle ("onclick",_itwana.onClick);
+        _itwana.onClick = EditorGUILayout.Toggle ("Onclick",_itwana.onClick);
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndHorizontal();
         
         
         EditorGUILayout.BeginVertical ();
-        EditorGUIUtility.fieldWidth = 100;
-        EditorGUIUtility.labelWidth = 150;
+        EditorGUIUtility.labelWidth = 200;
         
         EditorGUILayout.BeginHorizontal ("box");
-		
-        _itwana.ignoreTimeScale = EditorGUILayout.Toggle("ignoreTimeScale", _itwana.ignoreTimeScale);
+        _itwana.ignoreTimeScale=   EditorGUILayout.Toggle("IgnoreTimeScale",  _itwana.ignoreTimeScale);
         EditorGUILayout.EndHorizontal();
         EditorGUILayout.EndHorizontal();
         
@@ -251,6 +244,21 @@ public class itwanaEditor: Editor{
         EditorGUILayout.EndVertical();
     }
 
+    private  void PitchVolume()
+    {
+        EditorGUILayout.BeginVertical ("box");
+        _itwana.pitch = EditorGUILayout.Slider ("Pitch", _itwana.pitch, -3, 3);
+        _itwana.volume = EditorGUILayout.Slider ("Volume", _itwana.volume, 0, 1);
+        EditorGUILayout.EndVertical();
+    }
 
+    private void Version()
+    {
+        EditorGUILayout.BeginVertical();
+        EditorStyles.label.fontSize = 10;
+        EditorGUILayout.LabelField("Verion 3.0");
+
+        EditorGUILayout.EndVertical ();
+    }
 
 }

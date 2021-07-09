@@ -248,8 +248,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
-  method: 4
-  axis: 7
+  method: 5
+  axis: 0
   easeType: 21
   loopType: 0
   targetGameObject: {fileID: 0}
