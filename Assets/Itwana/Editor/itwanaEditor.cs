@@ -30,6 +30,7 @@ public class itwanaEditor: Editor{
             _itwana.method = (itwana.Method)EditorGUILayout.EnumPopup ("Method", _itwana.method);
             EditorGUILayout.EndVertical();
 
+            RemoveItweenPath();
             if (_itwana.method != itwana.Method.None)
             {
                 EditorGUILayout.BeginVertical("box");
@@ -46,37 +47,49 @@ public class itwanaEditor: Editor{
                 RepeatOnclickIgnoreTimeScale();
             }
         }
-        else if (_itwana.type == itwana.Type.Stab) {
-            EditorGUILayout.BeginVertical ("box");
-            _itwana.clip =(AudioClip)EditorGUILayout.ObjectField ("Clip",_itwana.clip, typeof(AudioClip),true);
-            EditorGUILayout.EndVertical();
+        else if (_itwana.type == itwana.Type.StabAudio)
+        {
+            RemoveItweenPath();
+            AudioClip();
             PitchVolume();
             RepeatOnclickIgnoreTimeScale();
         }
-        else if (_itwana.type == itwana.Type.FollowPath) {
-            EditorGUILayout.BeginVertical ("box");
-            _itwana.pathName= EditorGUILayout.TextField("PathName",_itwana.pathName);
-            EditorGUILayout.EndVertical();
+        else if (_itwana.type == itwana.Type.FollowPath)
+        {
+            AddItweenPath();
+            PathName();
             EaseTypeLoopType();
             DelayTime();
             RepeatOnclickIgnoreTimeScale();
-        }
-
-        else if (_itwana.type == itwana.Type.Audio) {
-            EditorGUILayout.BeginVertical ("box");
-            _itwana.method = (itwana.Method)EditorGUILayout.EnumPopup ("Method", _itwana.method);
-            EditorGUILayout.EndVertical();
-            if (_itwana.method == itwana.Method.To || _itwana.method == itwana.Method.From || _itwana.method == itwana.Method.Update)
-            {
-                PitchVolume();
-                RepeatOnclickIgnoreTimeScale();
-            }
-            
         }
         EditorGUILayout.EndVertical ();
         
         Version();
         
+    }
+
+    private void AddItweenPath()
+    {
+        _itwana.AddItweenPath();
+    }
+
+    private void RemoveItweenPath()
+    {
+        _itwana.RemoveItweenPath();
+    }
+
+    private void AudioClip()
+    {
+        EditorGUILayout.BeginVertical ("box");
+        _itwana.clip =(AudioClip)EditorGUILayout.ObjectField ("Clip",_itwana.clip, typeof(AudioClip),true);
+        EditorGUILayout.EndVertical();
+    }
+    
+    private void PathName()
+    {
+        EditorGUILayout.BeginVertical ("box");
+        _itwana.pathName= EditorGUILayout.TextField("PathName",_itwana.pathName);
+        EditorGUILayout.EndVertical();
     }
 
     private void TargetLocationField()
