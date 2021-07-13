@@ -226,7 +226,6 @@ GameObject:
   m_Component:
   - component: {fileID: 435207046}
   - component: {fileID: 435207045}
-  - component: {fileID: 435207044}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -234,27 +233,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &435207044
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 435207043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01bffa8aa898b437183cd5617f7b5303, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pathName: New Path 2
-  pathColor: {r: 0, g: 1, b: 1, a: 1}
-  nodes:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
-  nodeCount: 2
-  initialized: 1
-  initialName: New Path 2
-  pathVisible: 1
 --- !u!114 &435207045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,8 +245,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a3d392589603364591f3baa66c9c94e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 5
-  method: 0
+  type: 0
+  method: 1
   axis: 0
   easeType: 21
   loopType: 0
