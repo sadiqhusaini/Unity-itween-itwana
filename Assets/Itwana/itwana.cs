@@ -176,19 +176,18 @@ public class itwana : MonoBehaviour {
     }
 
     void AudioMethods(){
-        ////////////////////////////Method To////////////////////////////////////
         if (Method.To == method) {
       
-                iTween.AudioTo (objectForTween,hash);
+            iTween.AudioTo (objectForTween,hash);
         }
         else if (Method.From== method) {
 
           
-                iTween.AudioFrom (objectForTween,hash);
+            iTween.AudioFrom (objectForTween,hash);
         }
         else if (Method.Update== method) {
 
-                iTween.AudioFrom (objectForTween,hash);
+            iTween.AudioFrom (objectForTween,hash);
         }
         else
         {
@@ -200,7 +199,7 @@ public class itwana : MonoBehaviour {
         hash.Add ("Audioclip", clip);
         hash.Add ("pitch",pitch);
         hash.Add ("volume", volume);
-            iTween.Stab (objectForTween, hash );
+        iTween.Stab (objectForTween, hash );
     }
 
     private void SetAxisValues(ref Vector3 temp)
@@ -304,7 +303,9 @@ public class itwana : MonoBehaviour {
         
         Vector3 tempScale = objectForTween.transform.localScale;
         SetAxisValues(ref tempScale);
-        hash.Add ("scale", tempScale);
+        
+        if(method!=Method.Punch || method!=Method.Shake)
+            hash.Add ("scale", tempScale);
         
         switch (method)
         {
@@ -335,11 +336,17 @@ public class itwana : MonoBehaviour {
             }
             case Method.Punch:
             {
+                hash.Add ("x", tempScale.x);
+                hash.Add ("y", tempScale.y);
+                hash.Add ("z", tempScale.z);
                 iTween.PunchScale (objectForTween,hash);
                 break;
             }
             case Method.Shake:
             {
+                hash.Add ("x", tempScale.x);
+                hash.Add ("y", tempScale.y);
+                hash.Add ("z", tempScale.z);
                 iTween.ShakeScale (objectForTween,hash);
                 break;
             }
@@ -351,7 +358,8 @@ public class itwana : MonoBehaviour {
     private void MoveMethods(){
         Vector3 tempPos = objectForTween.transform.localPosition;
         SetAxisValues(ref tempPos);
-        hash.Add ("position", tempPos);
+        if(method!=Method.Punch || method!=Method.Shake)
+            hash.Add ("position", tempPos);
         
         switch (method)
         {
@@ -382,11 +390,17 @@ public class itwana : MonoBehaviour {
             }
             case Method.Punch:
             {
+                hash.Add ("x", tempPos.x);
+                hash.Add ("y", tempPos.y);
+                hash.Add ("z", tempPos.z);
                 iTween.PunchPosition (objectForTween,hash);
                 break;
             }
             case Method.Shake:
             {
+                hash.Add ("x", tempPos.x);
+                hash.Add ("y", tempPos.y);
+                hash.Add ("z", tempPos.z);
                 iTween.ShakePosition (objectForTween,hash);
                 break;
             }
@@ -395,10 +409,11 @@ public class itwana : MonoBehaviour {
 
     private void RotateMethods()
     {
-
         Vector3 tempRot = objectForTween.transform.localEulerAngles;
         SetAxisValues(ref tempRot);
-        hash.Add ("rotation", tempRot);
+        
+        if(method!=Method.Punch || method!=Method.Shake)
+            hash.Add ("rotation", tempRot);
         
         switch (method)
         {
@@ -429,11 +444,17 @@ public class itwana : MonoBehaviour {
             }
             case Method.Punch:
             {
+                hash.Add ("x", tempRot.x);
+                hash.Add ("y", tempRot.y);
+                hash.Add ("z", tempRot.z);
                 iTween.PunchRotation (objectForTween,hash);
                 break;
             }
             case Method.Shake:
             {
+                hash.Add ("x", tempRot.x);
+                hash.Add ("y", tempRot.y);
+                hash.Add ("z", tempRot.z);
                 iTween.ShakeRotation (objectForTween,hash);
                 break;
             }
