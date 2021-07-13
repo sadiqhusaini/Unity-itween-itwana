@@ -338,7 +338,7 @@ public class itwana : MonoBehaviour {
         Vector3 tempScale = objectForTween.transform.localScale;
         SetAxisValues(ref tempScale);
         
-        if(method!=Method.Punch || method!=Method.Shake)
+        if(method!=Method.Punch || method!=Method.Shake||method!=Method.By ||method!=Method.Add)
             hash.Add ("scale", tempScale);
         
         switch (method)
@@ -355,6 +355,9 @@ public class itwana : MonoBehaviour {
             }
             case Method.Add:
             {
+                hash.Add ("x", tempScale.x);
+                hash.Add ("y", tempScale.y);
+                hash.Add ("z", tempScale.z);
                 iTween.ScaleAdd(objectForTween,hash);
                 break;
             }
@@ -365,6 +368,9 @@ public class itwana : MonoBehaviour {
             }
             case Method.By:
             {
+                hash.Add ("x", tempScale.x);
+                hash.Add ("y", tempScale.y);
+                hash.Add ("z", tempScale.z);
                 iTween.ScaleBy(objectForTween,hash);
                 break;
             }
@@ -392,7 +398,7 @@ public class itwana : MonoBehaviour {
     private void MoveMethods(){
         Vector3 tempPos = objectForTween.transform.localPosition;
         SetAxisValues(ref tempPos);
-        if(method!=Method.Punch || method!=Method.Shake)
+        if(method!=Method.Punch || method!=Method.Shake||method!=Method.By ||method!=Method.Add)
             hash.Add ("position", tempPos);
         
         switch (method)
@@ -409,6 +415,9 @@ public class itwana : MonoBehaviour {
             }
             case Method.Add:
             {
+                hash.Add ("x", tempPos.x);
+                hash.Add ("y", tempPos.y);
+                hash.Add ("z", tempPos.z);
                 iTween.MoveAdd(objectForTween,hash);
                 break;
             }
@@ -419,6 +428,9 @@ public class itwana : MonoBehaviour {
             }
             case Method.By:
             {
+                hash.Add ("x", tempPos.x);
+                hash.Add ("y", tempPos.y);
+                hash.Add ("z", tempPos.z);
                 iTween.MoveBy(objectForTween,hash);
                 break;
             }
@@ -446,7 +458,7 @@ public class itwana : MonoBehaviour {
         Vector3 tempRot = objectForTween.transform.localEulerAngles;
         SetAxisValues(ref tempRot);
         
-        if(method!=Method.Punch || method!=Method.Shake)
+        if(method!=Method.Punch || method!=Method.Shake||method!=Method.By ||method!=Method.Add)
             hash.Add ("rotation", tempRot);
         
         switch (method)
@@ -463,6 +475,9 @@ public class itwana : MonoBehaviour {
             }
             case Method.Add:
             {
+                hash.Add ("x", tempRot.x);
+                hash.Add ("y", tempRot.y);
+                hash.Add ("z", tempRot.z);
                 iTween.RotateAdd(objectForTween,hash);
                 break;
             }
@@ -473,6 +488,9 @@ public class itwana : MonoBehaviour {
             }
             case Method.By:
             {
+                hash.Add ("x", tempRot.x);
+                hash.Add ("y", tempRot.y);
+                hash.Add ("z", tempRot.z);
                 iTween.RotateBy(objectForTween,hash);
                 break;
             }
