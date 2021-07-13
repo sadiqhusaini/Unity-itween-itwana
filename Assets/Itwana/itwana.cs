@@ -54,6 +54,8 @@ public class itwana : MonoBehaviour {
 
     private GameObject objectForTween;
 
+    public bool isUpdate = false;
+
     private void Awake()
     {
         SetObjectForTween();
@@ -95,6 +97,8 @@ public class itwana : MonoBehaviour {
             objectForTween. transform.localPosition = pos;
             objectForTween.     transform.localScale = scal;
             objectForTween.  transform.localEulerAngles = rot;
+            isUpdate = false;
+
         }
     }
 
@@ -150,21 +154,51 @@ public class itwana : MonoBehaviour {
                 break;
             }
             default: break;
-                Debug.LogError ("Select Correct type of itween");
-        }
+                Debug.LogWarning ("Select Correct type of itween");
+        } 
         
 
     }
-    void Update(){
-        
-        // iTween.ScaleUpdate (objectForTween, hash); 
-        //
-        // iTween.MoveUpdate (objectForTween, hash); 
-        // iTween.RotateUpdate (objectForTween, hash); 
-        // iTween.AudioUpdate (objectForTween, hash); 
-        //
-    }	
+    void Update()
+    {
+        if (isUpdate)
+            UpdateTween();
+    }
 
+    private void UpdateTween()
+    {
+        switch(type)
+        {
+            case Type.Move:
+            {
+                iTween.MoveUpdate (objectForTween, hash);
+                break;
+            }
+            case Type.Rotate:
+            {
+                iTween.RotateUpdate (objectForTween, hash);
+                break;
+            }
+            case Type.Scale:
+            {
+                iTween.ScaleUpdate (objectForTween, hash);
+                break;
+            }
+            case Type.Stab:
+            {
+                break;
+            }
+            case Type.FollowPath:
+            {
+                break;
+            }
+            case Type.Audio:
+            {
+                iTween.AudioUpdate (objectForTween, hash);
+                break;
+            }
+        }
+    }
     public void OnClickTwana()
     {
         StartTweens();
@@ -191,7 +225,7 @@ public class itwana : MonoBehaviour {
         }
         else
         {
-            Debug.Log("there is no method in Type " + type);
+            Debug.LogWarning("there is no method in Type " + type);
         }
     }
     
@@ -326,7 +360,7 @@ public class itwana : MonoBehaviour {
             }
             case Method.Update:
             {
-                
+                isUpdate = true;
                 break;
             }
             case Method.By:
@@ -380,7 +414,7 @@ public class itwana : MonoBehaviour {
             }
             case Method.Update:
             {
-                
+                isUpdate = true;
                 break;
             }
             case Method.By:
@@ -434,7 +468,7 @@ public class itwana : MonoBehaviour {
             }
             case Method.Update:
             {
-                
+                isUpdate = true;
                 break;
             }
             case Method.By:
